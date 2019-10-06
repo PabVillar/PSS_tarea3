@@ -16,52 +16,59 @@ void extraer(FILE *file, int ancho, FILE *out){
 	char s[6], d[5];
 	int priorities_pos[5];
 
-	int max_priority;
-
 	fseek(file,0L,SEEK_SET);
 	fgets(principle,4,file);
+
+	if (principle[0] == '0')
+	{
+		perror("error: cola.txt esta vacia");
+		exit(-1);
+	}
+
+	int len = ((int)principle[0])-48+1;
 	
 
-	for (int i = 1; i <= 5; ++i)
+	for (int i = 0; i < len; ++i)
 	{
 		priority_pos = 4+1+i*(16+1);
 		priorities_pos[i] = priority_pos;
 		
 		fseek(file,priority_pos+10,SEEK_SET);
 		meleon = getc(file);
-		s[i-1] = meleon;
-
+		s[i] = meleon;
 		
 	}
+	
+	int max_priority = s[0];
 
-	for (int j = 0; j < 5; ++j)
+	for (int j = 0; j < len-1; ++j)
 	{
-		if (s[j]>s[j+1])
+		if (s[j] <= max_priority)
 		{
-			max_priority = s[j+1];
-			priority_pos_max = priorities_pos[j+1];
+			max_priority = s[j];
+			priority_pos_max = priorities_pos[j];
 
 		}
 		
 	}
+
+
+
 	fseek(file,priority_pos_max,SEEK_SET);
 	fgets(buf,10,file);
 	printf("%s\n", buf);
-
-	//Hacer algo con principle
-
-
-	fseek(file,priorities_pos[5]-17,SEEK_SET);
-	fgets(replacement,ancho,file);
 	
+	principle[0]--;
+	fseek(file,0L,SEEK_SET);
+	fputs(principle,file);
+	printf("%c\n", principle[0]);
+
+	fseek(file,priorities_pos[len-1]-17,SEEK_SET);
+	fgets(replacement,16,file);
 	
+
 	fseek(file,priority_pos_max,SEEK_SET);
-	fputs(replacement,file);
-	
-	
-	
-
-	
+	fputs(replacement,file);	
 	
 			
 
