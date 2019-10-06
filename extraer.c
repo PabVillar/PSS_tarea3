@@ -3,7 +3,7 @@
 #include <string.h>
 
 
-void extraer(FILE *file, int ancho, FILE *out){
+void extraer(FILE *file, int ancho){
 
 	char buf[ancho+1];
 	char replacement[ancho+1];
@@ -11,9 +11,9 @@ void extraer(FILE *file, int ancho, FILE *out){
 
 	int priority_pos;
 	char meleon;
-	int priority;
+	
 	int priority_pos_max;
-	char s[6], d[5];
+	char s[6];
 	int priorities_pos[5];
 
 	fseek(file,0L,SEEK_SET);
@@ -78,7 +78,7 @@ void extraer(FILE *file, int ancho, FILE *out){
 
 
 int main(int argc, const char **argv) {
-    FILE *file,*out;
+    FILE *file;
 
     file = fopen(argv[1], "r+");
 
@@ -89,7 +89,7 @@ int main(int argc, const char **argv) {
         exit(1);
     }
 
-    extraer(file,ANCHO_LIN,out);
+    extraer(file,ANCHO_LIN);
 
     fclose(file);
 
