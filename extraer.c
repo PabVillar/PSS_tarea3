@@ -61,7 +61,7 @@ void extraer(FILE *file, int ancho){
 	principle[0]--;
 	fseek(file,0L,SEEK_SET);
 	fputs(principle,file);
-	printf("%c\n", principle[0]);
+	
 
 	fseek(file,priorities_pos[len-1]-17,SEEK_SET);
 	fgets(replacement,16,file);
