@@ -62,20 +62,21 @@ void extraer(FILE *file, int ancho){
 	}
 
 
-	
+	//se posiciona el puntero al inicio de la linea con mejor prioridad y se imprime el nombre en pantalla
 	fseek(file,priority_pos_max,SEEK_SET);
 	fgets(buf,10,file);
 	printf("%s\n", buf);
 	
+	//se disminuye y actualiza el tamaño de la cola
 	principle[0]--;
 	fseek(file,0L,SEEK_SET);
 	fputs(principle,file);
 	
-
+	//se obtiene el ultimo elemento de la cola para el reemplazo
 	fseek(file,priorities_pos[len-1]-17,SEEK_SET);
 	fgets(replacement,16,file);
 	
-
+	//se hace el reemplazo en la linea que se extrajo
 	fseek(file,priority_pos_max,SEEK_SET);
 	fputs(replacement,file);	
 	
